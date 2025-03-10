@@ -81,8 +81,8 @@ public class Controller {
 	 * For et givent vægtinterval og et givent lægemiddel, hentes antallet af
 	 * ordinationer.
 	 */
-	public int antalOrdinationerPrVægtPrLægemiddel(double vægtStart,
-			double vægtSlut, Laegemiddel laegemiddel) {
+	public int antalOrdinationerPrVaegtPrLaegemiddel(double vaegtStart,
+													 double vaegtSlut, Laegemiddel laegemiddel) {
 		// TODO
 		return 0;
 	}

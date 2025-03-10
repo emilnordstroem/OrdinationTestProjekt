@@ -16,8 +16,11 @@ import ordination.Ordination;
 import ordination.PN;
 
 public class OrdinationDetailsPane extends GridPane {
-    private TextField txtStarttid, txtSluttid, txtLaegemiddel, txtDoegndosis,
-        txtTotalDosis;
+    private TextField txtStarttid;
+    private TextField txtSluttid;
+    private TextField txtLaegemiddel;
+    private TextField txtDoegndosis;
+    private TextField txtTotalDosis;
     private TextField txtType = new TextField();
 
     // Daglig fast
@@ -91,7 +94,7 @@ public class OrdinationDetailsPane extends GridPane {
         datePicker.setMaxWidth(90);
 
         btnAnvend.setOnAction(event -> actionAnvend());
-        
+
         lblError.setTextFill(Color.RED);
         pnPane.add(lblError, 0, 8, 2, 1);
     }
@@ -101,8 +104,7 @@ public class OrdinationDetailsPane extends GridPane {
         LocalDate anvendtDato = datePicker.getValue();
         try {
             controller.ordinationPNAnvendt(pn, anvendtDato);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             lblError.setText(e.getMessage());
             return;
         }
@@ -110,9 +112,9 @@ public class OrdinationDetailsPane extends GridPane {
         txtDosis.setText(pn.getAntalEnheder() + "");
 
         txtDoegndosis.setText(pn.doegnDosis() + " "
-            + pn.getLaegemiddel().getEnhed());
+                + pn.getLaegemiddel().getEnhed());
         txtTotalDosis.setText(pn.samletDosis() + " "
-            + pn.getLaegemiddel().getEnhed());
+                + pn.getLaegemiddel().getEnhed());
     }
 
     public void clear() {

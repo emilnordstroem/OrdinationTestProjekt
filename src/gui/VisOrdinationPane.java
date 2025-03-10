@@ -33,20 +33,16 @@ public class VisOrdinationPane extends GridPane {
 				.getSelectionModel()
 				.selectedIndexProperty()
 				.addListener(
-						observable -> {
-							lstOrdination.getItems().setAll(
+						observable -> lstOrdination.getItems().setAll(
 									lstPatient.getSelectionModel()
 											.getSelectedItem()
-											.getOrdinationer());
-						});
+											.getOrdinationer()));
 		lstPatient.getSelectionModel().selectFirst();
 
 		this.add(new Label("Vælg ordination"), 1, 0);
 		this.add(lstOrdination, 1, 1);
 		lstOrdination.getSelectionModel().selectedItemProperty()
-				.addListener(observable -> {
-					updateDetails();
-				});
+				.addListener(observable -> updateDetails());
 
 		this.add(new Label("Ordinationsdetaljer"), 2, 0);
 		this.add(ordinationDetailsPane, 2, 1);

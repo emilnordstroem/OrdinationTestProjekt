@@ -11,15 +11,15 @@ public class Storage {
 	private List<Laegemiddel> laegemidler;
 
 	public Storage() {
-		patienter = new ArrayList<Patient>();
-		laegemidler = new ArrayList<Laegemiddel>();
+		patienter = new ArrayList<>();
+		laegemidler = new ArrayList<>();
 	}
 
 	/**
 	 * Returnerer en liste med alle gemte patienter
 	 */
 	public List<Patient> getAllPatienter() {
-		return new ArrayList<Patient>(patienter);
+		return new ArrayList<>(patienter);
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class Storage {
 	 * Returnerer en liste med alle gemte lægemidler
 	 */
 	public List<Laegemiddel> getAllLaegemidler() {
-		return new ArrayList<Laegemiddel>(laegemidler);
+		return new ArrayList<>(laegemidler);
 	}
 
 	/**
