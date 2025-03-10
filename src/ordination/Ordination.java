@@ -4,18 +4,18 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public abstract class Ordination {
-    private LocalDate startDen;
-    private LocalDate slutDen;
+    private LocalDate startDato;
+    private LocalDate slutDato;
 
     // TODO Link til Laegemiddel
-    // TODO constructor (med specifikation)
+    // TODO constructor
 
-    public LocalDate getStartDen() {
-        return startDen;
+    public LocalDate getStartDato() {
+        return startDato;
     }	
 
-    public LocalDate getSlutDen() {
-        return slutDen;
+    public LocalDate getSlutDato() {
+        return slutDato;
     }
 
     /**
@@ -23,12 +23,12 @@ public abstract class Ordination {
      * @return antal dage ordinationen gælder for
      */
     public int antalDage() {
-        return (int) ChronoUnit.DAYS.between(startDen, slutDen) + 1;
+        return (int) ChronoUnit.DAYS.between(startDato, slutDato) + 1;
     }
 
     @Override
     public String toString() {
-        return startDen.toString();
+        return startDato.toString();
     }
 
     /**

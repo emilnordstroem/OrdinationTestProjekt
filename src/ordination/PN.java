@@ -7,13 +7,13 @@ public class PN {
     private double antalEnheder;
 
     /**
-     * Registrerer at der er givet en dosis paa dagen givesDen
-     * Returnerer true hvis givesDen er inden for ordinationens gyldighedsperiode og datoen huskes
-     * Retrurner false ellers og datoen givesDen ignoreres
-     * @param givesDen
+     * Registrerer at der er givet en dosis paa dagen givetDato
+     * Returnerer true hvis givetDato er inden for ordinationens gyldighedsperiode og datoen huskes
+     * Retrurner false ellers og datoen givetDato ignoreres
+     * @param givetDato
      * @return
      */
-    public boolean givDosis(LocalDate givesDen) {
+    public boolean givDosis(LocalDate givetDato) {
         // TODO
         return false;   
     }

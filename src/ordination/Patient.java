@@ -33,7 +33,7 @@ public class Patient {
         this.vaegt = vaegt;
     }
 
-    //TODO: Metoder (med specifikation) til at vedligeholde link til Ordination
+    //TODO: Metoder til at vedligeholde link til Ordination
 
     @Override
     public String toString(){

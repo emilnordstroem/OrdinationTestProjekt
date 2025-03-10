@@ -31,26 +31,19 @@ public class Controller {
 	}
 
 	/**
-	 * Hvis startDato er efter slutDato kastes en IllegalArgumentException og
-	 * ordinationen oprettes ikke
-	 * Pre: startDen, slutDen, patient og laegemiddel er ikke null
-	 * Pre: antal >= 0
 	 * @return opretter og returnerer en PN ordination.
 	 */
-	public PN opretPNOrdination(LocalDate startDen, LocalDate slutDen,
+	public PN opretPNOrdination(LocalDate startDato, LocalDate slutDato,
 			Patient patient, Laegemiddel laegemiddel, double antal) {
 		// TODO
 		return null;
 	}
 
 	/**
-	 * Opretter og returnerer en DagligFast ordination. Hvis startDato er efter
-	 * slutDato kastes en IllegalArgumentException og ordinationen oprettes ikke
-	 * Pre: startDen, slutDen, patient og laegemiddel er ikke null
-	 * Pre: margenAntal, middagAntal, aftanAntal, natAntal >= 0
+	 * Opretter og returnerer en DagligFast ordination.
 	 */
-	public DagligFast opretDagligFastOrdination(LocalDate startDen,
-			LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
+	public DagligFast opretDagligFastOrdination(LocalDate startDato,
+			LocalDate slutDato, Patient patient, Laegemiddel laegemiddel,
 			double morgenAntal, double middagAntal, double aftenAntal,
 			double natAntal) {
 		// TODO
@@ -58,25 +51,17 @@ public class Controller {
 	}
 
 	/**
-	 * Opretter og returnerer en DagligSkæv ordination. Hvis startDato er efter
-	 * slutDato kastes en IllegalArgumentException og ordinationen oprettes ikke.
-	 * Hvis antallet af elementer i klokkeSlet og antalEnheder er forskellige kastes også en IllegalArgumentException.
-	 *
-	 * Pre: startDen, slutDen, patient og laegemiddel er ikke null
-	 * Pre: alle tal i antalEnheder > 0
+	 * Opretter og returnerer en DagligSkæv ordination.
 	 */
-	public DagligSkaev opretDagligSkaevOrdination(LocalDate startDen,
-			LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
+	public DagligSkaev opretDagligSkaevOrdination(LocalDate startDato,
+			LocalDate slutDato, Patient patient, Laegemiddel laegemiddel,
 			LocalTime[] klokkeSlet, double[] antalEnheder) {
 		// TODO
 		return null;
 	}
 
 	/**
-	 * En dato for hvornår ordinationen anvendes tilføjes ordinationen. Hvis
-	 * datoen ikke er indenfor ordinationens gyldighedsperiode kastes en
-	 * IllegalArgumentException
-	 * Pre: ordination og dato er ikke null
+	 * En dato for hvornår ordinationen anvendes tilføjes ordinationen.
 	 */
 	public void ordinationPNAnvendt(PN ordination, LocalDate dato) {
 		// TODO
@@ -86,7 +71,6 @@ public class Controller {
 	 * Den anbefalede dosis for den pågældende patient (der skal tages hensyn
 	 * til patientens vægt). Det er en forskellig enheds faktor der skal
 	 * anvendes, og den er afhængig af patientens vægt.
-	 * Pre: patient og lægemiddel er ikke null
 	 */
 	public double anbefaletDosisPrDoegn(Patient patient, Laegemiddel laegemiddel) {
 		//TODO
@@ -96,7 +80,6 @@ public class Controller {
 	/**
 	 * For et givent vægtinterval og et givent lægemiddel, hentes antallet af
 	 * ordinationer.
-	 * Pre: laegemiddel er ikke null
 	 */
 	public int antalOrdinationerPrVægtPrLægemiddel(double vægtStart,
 			double vægtSlut, Laegemiddel laegemiddel) {
@@ -127,18 +110,18 @@ public class Controller {
 	}
 
 	public Patient opretPatient(String cpr, String navn, double vaegt) {
-		Patient p = new Patient(cpr, navn, vaegt);
-		storage.addPatient(p);
-		return p;
+		Patient patient = new Patient(cpr, navn, vaegt);
+		storage.addPatient(patient);
+		return patient;
 	}
 
 	public Laegemiddel opretLaegemiddel(String navn,
 			double enhedPrKgPrDoegnLet, double enhedPrKgPrDoegnNormal,
 			double enhedPrKgPrDoegnTung, String enhed) {
-		Laegemiddel lm = new Laegemiddel(navn, enhedPrKgPrDoegnLet,
+		Laegemiddel laegemiddel = new Laegemiddel(navn, enhedPrKgPrDoegnLet,
 				enhedPrKgPrDoegnNormal, enhedPrKgPrDoegnTung, enhed);
-		storage.addLaegemiddel(lm);
-		return lm;
+		storage.addLaegemiddel(laegemiddel);
+		return laegemiddel;
 	}
 
 	public void createSomeObjects() {

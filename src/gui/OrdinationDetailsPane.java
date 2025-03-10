@@ -129,8 +129,8 @@ public class OrdinationDetailsPane extends GridPane {
 
     public void setOrdination(Ordination ordination) {
         txtType.setText(ordination.getType());
-        txtStarttid.setText(ordination.getStartDen().toString());
-        txtSluttid.setText(ordination.getSlutDen().toString());
+        txtStarttid.setText(ordination.getStartDato().toString());
+        txtSluttid.setText(ordination.getSlutDato().toString());
         txtLaegemiddel.setText(ordination.getLaegemiddel().toString());
         txtDoegndosis.setText(ordination.doegnDosis() + "");
         txtTotalDosis.setText(ordination.samletDosis() + "");

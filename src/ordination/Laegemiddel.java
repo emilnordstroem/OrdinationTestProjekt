@@ -24,16 +24,9 @@ public class Laegemiddel {
         return navn;
     }
 
-    public double getEnhedPrKgPrDoegnLet() {
-        return enhedPrKgPrDoegnLet;
-    }
-
-    public double getEnhedPrKgPrDoegnNormal() {
-        return enhedPrKgPrDoegnNormal;
-    }
-
-    public double getEnhedPrKgPrDoegnTung() {
-        return enhedPrKgPrDoegnTung;
+    public double anbefaletDosisPrDoegn(int vaegt) {
+        //TODO
+        return 0;
     }
 
     @Override
