@@ -17,7 +17,7 @@ public class DagligSkaev extends Ordination {
         Dosis nyDosis = new Dosis(tid, antal);
         for(Dosis nuvaerendeDosis : dosiser) {
             if (tid.equals(nuvaerendeDosis.getTid())) {
-                nuvaerendeDosis.setAntal(nuvaerendeDosis.getAntal() + antal);
+                nuvaerendeDosis.setAntal(antal);
                 return;
             }
         }
