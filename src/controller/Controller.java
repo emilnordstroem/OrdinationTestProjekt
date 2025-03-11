@@ -14,6 +14,7 @@ import storage.Storage;
 public class Controller {
 	private Storage storage;
 	private static Controller controller;
+	private String Jens;
 
 	private Controller() {
 		storage = new Storage();
