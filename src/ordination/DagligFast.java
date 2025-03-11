@@ -2,13 +2,18 @@ package ordination;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class DagligFast extends Ordination {
     private final Dosis[] doser;
 
-    DagligFast(LocalDate startDato, LocalDate slutDato, Patient patient) {
+    public DagligFast(LocalDate startDato, LocalDate slutDato, Patient patient) {
         super(startDato, slutDato, patient);
         this.doser = new Dosis[4];
+    }
+
+    public Dosis[] getDoser() {
+        return doser;
     }
 
     public void opretDosis(LocalTime tid, double antal) {
@@ -16,7 +21,12 @@ public class DagligFast extends Ordination {
         int hour = tid.getHour();
         int[] indexMapping = {3, 0, 1, 2}; // 0-5 -> 3, 6-11 -> 0, 12-17 -> 1, 18-23 -> 2
         int index = indexMapping[6 / hour];
-        doser[index] = dosis;
+        if(doser[index] != null) {
+            doser[index] = dosis;
+        }
+        else {
+            throw new IllegalArgumentException("Der er allerede en dosis på denne del af dagen");
+        }
     }
 
     @Override
