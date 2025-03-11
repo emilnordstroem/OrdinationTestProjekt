@@ -6,9 +6,13 @@ import java.time.temporal.ChronoUnit;
 public abstract class Ordination {
     private LocalDate startDato;
     private LocalDate slutDato;
+    private Laegemiddel laegemiddel = new Laegemiddel("", 0,0,0,"");
 
-    // TODO Link til Laegemiddel
-    // TODO constructor
+    public Ordination(LocalDate startDato, LocalDate slutDato, Patient patient) {
+        this.startDato = startDato;
+        this.slutDato = slutDato;
+        patient.tilfoejOrdination(this);
+    }
 
     public LocalDate getStartDato() {
         return startDato;
@@ -16,6 +20,14 @@ public abstract class Ordination {
 
     public LocalDate getSlutDato() {
         return slutDato;
+    }
+
+    public void tilfoejLaegemiddel(Laegemiddel laegemiddel){
+       this.laegemiddel = laegemiddel;
+    }
+
+    public Laegemiddel getLaegemiddel() {
+        return this.laegemiddel;
     }
 
     /**

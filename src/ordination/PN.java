@@ -1,10 +1,17 @@
 package ordination;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-public class PN {
-
+public class PN extends Ordination{
+    private HashMap<LocalDate, Integer> ordinationlog = new HashMap<>();
     private double antalEnheder;
+
+    public PN(LocalDate startDato, LocalDate slutDato, Patient patient, double antalEnheder) {
+        super(startDato, slutDato, patient);
+        this.antalEnheder = antalEnheder;
+    }
 
     /**
      * Registrerer at der er givet en dosis paa dagen givetDato
@@ -14,19 +21,30 @@ public class PN {
      * @return
      */
     public boolean givDosis(LocalDate givetDato) {
-        // TODO
-        return false;   
+        if(givetDato.isAfter(super.getStartDato()) && givetDato.isBefore(super.getSlutDato())){
+            if(ordinationlog.containsKey(givetDato)){
+                ordinationlog.put(givetDato, ordinationlog.get(givetDato) + 1);
+            } else {
+                ordinationlog.put(givetDato, 1);
+            }
+            return true;
+        }
+        return false;
     }
 
     public double doegnDosis() {
-        // TODO
-        return 0.0;
+        int antalOrdinationerAnvendt = super.getStartDato().compareTo(LocalDate.now());
+        return (antalOrdinationerAnvendt * antalEnheder) / super.antalDage();
+    }
+
+    @Override
+    public String getType() {
+        return "PN";
     }
 
 
     public double samletDosis() {
-        // TODO
-        return 0.0;
+        return antalEnheder * super.antalDage();
     }
 
     /**
@@ -34,8 +52,7 @@ public class PN {
      * @return
      */
     public int getAntalGangeGivet() {
-        // TODO
-        return-1;
+        return super.getStartDato().compareTo(LocalDate.now());
     }
 
     public double getAntalEnheder() {
