@@ -2,7 +2,7 @@ package ordination;
 
 import java.time.LocalTime;
 
-public class Dosis {
+public class Dosis implements Comparable<Dosis>{
     private LocalTime tid;
     private double antal;
 
@@ -32,4 +32,8 @@ public class Dosis {
         return "Kl: " + tid + "   antal:  " + antal;
     }
 
+    @Override
+    public int compareTo(Dosis dosis) {
+        return tid.compareTo(dosis.getTid());
+    }
 }

@@ -25,8 +25,9 @@ public class Laegemiddel {
     }
 
     public double anbefaletDosisPrDoegn(int vaegt) {
-        //TODO
-        return 0;
+        double[] dosering = {enhedPrKgPrDoegnLet, enhedPrKgPrDoegnNormal, enhedPrKgPrDoegnTung};
+        int index = (vaegt < 25) ? 0 : (vaegt <= 120) ? 1 : 2;
+        return dosering[index];
     }
 
     @Override

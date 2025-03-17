@@ -4,11 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import ordination.DagligFast;
-import ordination.DagligSkaev;
-import ordination.Laegemiddel;
-import ordination.PN;
-import ordination.Patient;
+import ordination.*;
 import storage.Storage;
 
 public class Controller {
@@ -35,8 +31,10 @@ public class Controller {
 	 */
 	public PN opretPNOrdination(LocalDate startDato, LocalDate slutDato,
 			Patient patient, Laegemiddel laegemiddel, double antal) {
-		// TODO
-		return null;
+		PN pn = new PN(startDato, slutDato, antal);
+		patient.tilføjOrdination(pn);
+		pn.setLaegemiddel(laegemiddel);
+		return pn;
 	}
 
 	/**
@@ -46,8 +44,14 @@ public class Controller {
 			LocalDate slutDato, Patient patient, Laegemiddel laegemiddel,
 			double morgenAntal, double middagAntal, double aftenAntal,
 			double natAntal) {
-		// TODO
-		return null;
+		DagligFast dagligFast = new DagligFast(startDato, slutDato);
+		dagligFast.opretDosis(LocalTime.of(8,0), morgenAntal);
+		dagligFast.opretDosis(LocalTime.of(13,0), middagAntal);
+		dagligFast.opretDosis(LocalTime.of(19,0), aftenAntal);
+		dagligFast.opretDosis(LocalTime.of(1,0), natAntal);
+		patient.tilføjOrdination(dagligFast);
+		dagligFast.setLaegemiddel(laegemiddel);
+		return dagligFast;
 	}
 
 	/**
@@ -56,15 +60,21 @@ public class Controller {
 	public DagligSkaev opretDagligSkaevOrdination(LocalDate startDato,
 			LocalDate slutDato, Patient patient, Laegemiddel laegemiddel,
 			LocalTime[] klokkeSlet, double[] antalEnheder) {
-		// TODO
-		return null;
+		DagligSkaev dagligSkaev = new DagligSkaev(startDato, slutDato);
+		for (int index = 0; index < klokkeSlet.length; index++) {
+			dagligSkaev.opretDosis(klokkeSlet[index], antalEnheder[index]);
+		}
+
+		patient.tilføjOrdination(dagligSkaev);
+		dagligSkaev.setLaegemiddel(laegemiddel);
+		return dagligSkaev;
 	}
 
 	/**
 	 * En dato for hvornår ordinationen anvendes tilføjes ordinationen.
 	 */
 	public void ordinationPNAnvendt(PN ordination, LocalDate dato) {
-		// TODO
+		ordination.givDosis(dato);
 	}
 
 	/**
@@ -73,8 +83,7 @@ public class Controller {
 	 * anvendes, og den er afhængig af patientens vægt.
 	 */
 	public double anbefaletDosisPrDoegn(Patient patient, Laegemiddel laegemiddel) {
-		//TODO
-		return 0;
+		return laegemiddel.anbefaletDosisPrDoegn((int) patient.getVaegt());
 	}
 
 	/**
@@ -83,8 +92,17 @@ public class Controller {
 	 */
 	public int antalOrdinationerPrVaegtPrLaegemiddel(double vaegtStart,
 													 double vaegtSlut, Laegemiddel laegemiddel) {
-		// TODO
-		return 0;
+		int antalOrdinationer = 0;
+		for (Patient patient : controller.getAllPatienter()) {
+			if((patient.getVaegt() >= vaegtStart && patient.getVaegt() <= vaegtSlut)) {
+				for (Ordination ordination : patient.getOrdinationer()) {
+					if(ordination.getLaegemiddel().equals(laegemiddel)) {
+						antalOrdinationer++;
+					}
+				}
+			}
+		}
+		return antalOrdinationer;
 	}
 
 	public List<Patient> getAllPatienter() {
@@ -136,36 +154,37 @@ public class Controller {
 		this.opretLaegemiddel("Fucidin", 0.025, 0.025, 0.025, "Styk");
 		this.opretLaegemiddel("Methotrexat", 0.01, 0.015, 0.02, "Styk");
 
-		this.opretPNOrdination(LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 12),
+		this.opretPNOrdination(LocalDate.now(), LocalDate.now().plusDays(7),
 				storage.getAllPatienter().get(0), storage.getAllLaegemidler()
 						.get(1),
 				123);
 
-		this.opretPNOrdination(LocalDate.of(2021, 2, 12), LocalDate.of(2021, 2, 14),
+
+		this.opretPNOrdination(LocalDate.now(), LocalDate.now().plusDays(7),
 				storage.getAllPatienter().get(0), storage.getAllLaegemidler()
 						.get(0),
 				3);
 
-		this.opretPNOrdination(LocalDate.of(2021, 1, 20), LocalDate.of(2021, 1, 25),
+		this.opretPNOrdination(LocalDate.now(), LocalDate.now().plusDays(7),
 				storage.getAllPatienter().get(3), storage.getAllLaegemidler()
 						.get(2),
 				5);
 
-		this.opretPNOrdination(LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 12),
+		this.opretPNOrdination(LocalDate.now(), LocalDate.now().plusDays(7),
 				storage.getAllPatienter().get(0), storage.getAllLaegemidler()
 						.get(1),
 				123);
 
-		this.opretDagligFastOrdination(LocalDate.of(2021, 1, 10),
-				LocalDate.of(2021, 1, 12), storage.getAllPatienter().get(1),
+		this.opretDagligFastOrdination(LocalDate.now(), LocalDate.now().plusDays(7),
+				storage.getAllPatienter().get(1),
 				storage.getAllLaegemidler().get(1), 2, 0, 1, 0);
 
 		LocalTime[] kl = { LocalTime.of(12, 0), LocalTime.of(12, 40),
 				LocalTime.of(16, 0), LocalTime.of(18, 45) };
 		double[] an = { 0.5, 1, 2.5, 3 };
 
-		this.opretDagligSkaevOrdination(LocalDate.of(2021, 1, 23),
-				LocalDate.of(2021, 1, 24), storage.getAllPatienter().get(1),
+		this.opretDagligSkaevOrdination(LocalDate.now(), LocalDate.now().plusDays(7),
+				storage.getAllPatienter().get(1),
 				storage.getAllLaegemidler().get(2), kl, an);
 	}
 

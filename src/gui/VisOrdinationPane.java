@@ -11,6 +11,8 @@ import ordination.Ordination;
 import ordination.PN;
 import ordination.Patient;
 
+import java.util.NoSuchElementException;
+
 public class VisOrdinationPane extends GridPane {
 	private ListView<Patient> lstPatient = new ListView<>();
 	private ListView<Ordination> lstOrdination = new ListView<>();
@@ -54,7 +56,12 @@ public class VisOrdinationPane extends GridPane {
 		ordinationDetailsPane.clear();
 		if (ordination != null) {
 			ordinationDetailsPane.clear();
-			ordinationDetailsPane.setOrdination(ordination);
+			try {
+				ordinationDetailsPane.setOrdination(ordination);
+			}
+			catch (NoSuchElementException exception) {
+
+			}
 			if (ordination instanceof DagligFast) {
 				DagligFast dagligFast = (DagligFast) ordination;
 				ordinationDetailsPane.setFast(dagligFast.getDoser()[0],
