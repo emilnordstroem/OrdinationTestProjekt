@@ -35,7 +35,8 @@ public class Controller {
 	 */
 	public PN opretPNOrdination(LocalDate startDato, LocalDate slutDato,
 			Patient patient, Laegemiddel laegemiddel, double antal) {
-		PN nyPN = new PN(startDato, slutDato, patient, antal);
+		PN nyPN = new PN(startDato, slutDato, antal);
+		patient.tilfoejOrdination(nyPN);
 		nyPN.tilfoejLaegemiddel(laegemiddel);
 		return nyPN;
 	}
@@ -47,8 +48,16 @@ public class Controller {
 			LocalDate slutDato, Patient patient, Laegemiddel laegemiddel,
 			double morgenAntal, double middagAntal, double aftenAntal,
 			double natAntal) {
-		// TODO
-		return null;
+		DagligFast nyDF = new DagligFast(startDato, slutDato);
+
+		nyDF.opretDosis(LocalTime.of(8,0), morgenAntal);
+		nyDF.opretDosis(LocalTime.of(13, 0), middagAntal);
+		nyDF.opretDosis(LocalTime.of(18, 0), aftenAntal);
+		nyDF.opretDosis(LocalTime.of(23,0), natAntal);
+
+		patient.tilfoejOrdination(nyDF);
+
+		return nyDF;
 	}
 
 	/**
@@ -57,11 +66,15 @@ public class Controller {
 	public DagligSkaev opretDagligSkaevOrdination(LocalDate startDato,
 			LocalDate slutDato, Patient patient, Laegemiddel laegemiddel,
 			LocalTime[] klokkeSlet, double[] antalEnheder) {
-		DagligSkaev nyDagligSkaev = new DagligSkaev(startDato, slutDato, patient);
+
+		DagligSkaev nyDagligSkaev = new DagligSkaev(startDato, slutDato);
 		nyDagligSkaev.tilfoejLaegemiddel(laegemiddel);
+
 		for(int index = 0; index < klokkeSlet.length; index++){
 			nyDagligSkaev.opretDosis(klokkeSlet[index], antalEnheder[index]);
 		}
+
+		patient.tilfoejOrdination(nyDagligSkaev);
 		return nyDagligSkaev;
 	}
 
@@ -87,6 +100,7 @@ public class Controller {
 	 */
 	public int antalOrdinationerPrVaegtPrLaegemiddel(double vaegtStart,
 													 double vaegtSlut, Laegemiddel laegemiddel) {
+
 		return (int) laegemiddel.anbefaletDosisPrDoegn((int) (vaegtSlut + vaegtSlut) / 2);
 	}
 

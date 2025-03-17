@@ -2,14 +2,14 @@ package ordination;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class PN extends Ordination{
-    private HashMap<LocalDate, Integer> ordinationlog = new HashMap<>();
     private double antalEnheder;
+    private int antalGangeGivet;
+    private ArrayList<LocalDate> anvendteDatoer = new ArrayList<>();
 
-    public PN(LocalDate startDato, LocalDate slutDato, Patient patient, double antalEnheder) {
-        super(startDato, slutDato, patient);
+    public PN(LocalDate startDato, LocalDate slutDato, double antalEnheder) {
+        super(startDato, slutDato);
         this.antalEnheder = antalEnheder;
     }
 
@@ -22,11 +22,8 @@ public class PN extends Ordination{
      */
     public boolean givDosis(LocalDate givetDato) {
         if(givetDato.isAfter(super.getStartDato()) && givetDato.isBefore(super.getSlutDato())){
-            if(ordinationlog.containsKey(givetDato)){
-                ordinationlog.put(givetDato, ordinationlog.get(givetDato) + 1);
-            } else {
-                ordinationlog.put(givetDato, 1);
-            }
+            antalGangeGivet++;
+            anvendteDatoer.add(givetDato);
             return true;
         }
         return false;
