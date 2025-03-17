@@ -9,10 +9,9 @@ public abstract class Ordination {
     private Laegemiddel laegemiddel;
 
 
-    protected Ordination(LocalDate startDato, LocalDate slutDato, Patient patient) {
+    protected Ordination(LocalDate startDato, LocalDate slutDato) {
         this.startDato = startDato;
         this.slutDato = slutDato;
-        patient.tilføjOrdination(this);
     }
 
     public LocalDate getStartDato() {

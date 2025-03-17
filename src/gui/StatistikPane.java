@@ -81,6 +81,9 @@ public class StatistikPane extends GridPane {
 		} catch (NumberFormatException e) {
 			ordinationerPerVaegtPerLaegemiddel.setText("");
 		}
+		catch (NullPointerException e) {
+			ordinationerPerVaegtPerLaegemiddel.setText("");
+		}
 	}
 	
 	public void updateControls() {

@@ -5,13 +5,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class PN extends Ordination {
-
     private double antalEnheder;
     private int antalGangeGivet;
     private ArrayList<LocalDate> datoerGivet;
 
-    public PN(LocalDate startDato, LocalDate slutDato, Patient patient, double antalEnheder) {
-        super(startDato, slutDato, patient);
+    public PN(LocalDate startDato, LocalDate slutDato, double antalEnheder) {
+        super(startDato, slutDato);
         this.antalEnheder = antalEnheder;
         this.antalGangeGivet = 0;
         this.datoerGivet = new ArrayList<>();
@@ -34,7 +33,7 @@ public class PN extends Ordination {
     }
 
     public double doegnDosis() {
-        return samletDosis() / ChronoUnit.DAYS.between(datoerGivet.getFirst(), datoerGivet.getLast()) + 1;
+        return samletDosis() / (ChronoUnit.DAYS.between(datoerGivet.getFirst(), datoerGivet.getLast()) + 1);
     }
 
     @Override

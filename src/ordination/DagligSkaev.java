@@ -7,8 +7,8 @@ import java.util.Collections;
 
 public class DagligSkaev extends Ordination {
     private final ArrayList<Dosis> doser;
-    public DagligSkaev(LocalDate startDato, LocalDate slutDato, Patient patient) {
-        super(startDato, slutDato, patient);
+    public DagligSkaev(LocalDate startDato, LocalDate slutDato) {
+        super(startDato, slutDato);
         this.doser = new ArrayList<>();
     }
 
